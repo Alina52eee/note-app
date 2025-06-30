@@ -1,0 +1,35 @@
+:root{
+    --primary-colorc: #95cca2;
+    --secondary-colorc: #8dcba0;
+    --tertiary-colorc: #cbf5da;
+}
+
+.card-1c {
+    width: 250px;
+    background-color:var(--tertiary-colorc);
+    border-radius: 10px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.card-1c-frame {
+    object-fit: cover;
+    width: 200px;
+    background-color: #b5b5b5;
+    overflow: hidden;
+}
+
+.card-1c-title {
+    color: var(--primary-colorc);
+    font-size:18px;
+    font-weight: 400;
+}
+
+.card-1c-info {
+    color: var(--secondary-colorc);
+    line-height: 2;  
+}
+
+.card-1c-text {
+    padding: 1px;
+}

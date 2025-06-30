@@ -1,0 +1,35 @@
+:root{
+    --primary-colorm:#ffdddd ;
+    --secondary-colorm:  #e3caca;
+    --tertiary-colorm: #c19595;
+}
+
+.card-1m {
+    width: 250px;
+    background-color: var(--tertiary-colorm);
+    border-radius: 10px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.card-1m-frame {
+    object-fit: cover;
+    width: 200px;
+    background-color: #a80000;
+    overflow: hidden;
+}
+
+.card-1m-title {
+    color:var ( --primary-colorm) ;
+    font-size:18px;
+    font-weight: 400;
+}
+
+.card-1m-info {
+    color:var (--secondary-colorm);
+     line-height: 2;  
+}
+
+.card-1m-text {
+    padding: 1px;
+}
