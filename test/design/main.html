@@ -4,50 +4,70 @@
     <meta charset="UTF-8">
     <title>Mani</title>
     <style>
-        h1{
+        h1 {
             text-align: center;
             background-color: #904f4f;
             margin: 0px;
         }
-        body{
+
+        body {
             width: 100vw;
             height: 100vh;
             margin: 0;
         }
-        #note-gallery{
-            background-color:#881a1a ;
+
+        #note-gallery {
+            background-color: #881a1a;
             width: 100%;
             height: 100%;
             display: flex;
             flex-wrap: wrap;
-            gap:20px; 
+            gap: 20px;
             justify-content: space-evenly;
             align-content: flex-start;
-          
+
         }
-        .note{
+
+        .note {
             background-color: firebrick;
             width: 200px;
             height: 200px;
-            border-style:solid;
+            border-style: solid;
             /*flex-grow: 1;*/
             overflow: hidden;
         }
-        .note-delete-container{
+
+        .note-delete-container {
             text-align: right;
+        }
+
+        #note-add-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            font-size: 50px;
+            border-radius: 100%;
+            width: 100px;
+            height: 100px;
         }
     </style>
 </head>
+
 <body>
-    <h1>Note app</h1>
-    <div id="note-gallery">
-        <div class="note">
-           <div class="note-delete-container">
-               <button class="note-delete">x</button>
-           </div>
-            <div class="note-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus suscipit veritatis quae. Eius officiis ad libero dolore, laudantium ullam dolores ipsam porro, eaque sunt quaerat quos modi et officia aut.</div>
+    <!--Главное окно-->
+    <div id="main">
+        <h1>Note app</h1>
+        <div id="note-gallery">
+            <div class="note">
+                <div class="note-delete-container">
+                    <button class="note-delete">x</button>
+                </div>
+                <div class="note-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus suscipit veritatis quae. Eius officiis ad libero dolore, laudantium ullam dolores ipsam porro, eaque sunt quaerat quos modi et officia aut.</div>
+            </div>
         </div>
+        <button id="note-add-btn">+</button>
     </div>
+    
     <script>
         var note = document.querySelector("#note-gallery").innerHTML;
         /*
@@ -59,15 +79,13 @@
              2.2.Добовлять шаблон в note-app (innerHTML).
                  - innerHTML += note
         */
-        
+
         var i = 0
         var end = 10
-        while ( i < end ){
+        while (i < end) {
             console.log(i)
             document.querySelector("#note-gallery").innerHTML += note
             i++
         }
-        
     </script>
-</body>
-</html>
+</body></html>
