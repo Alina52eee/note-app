@@ -1,45 +1,108 @@
-  h1 {
+#main{
+    display: block;
+}
+h1 {
       text-align: center;
-      background-color: #904f4f;
+      background-color: var(--t-color);
       margin: 0px;
   }
 
   #note-gallery {
-      background-color: #881a1a;
-      width: 100%;
+      padding: var(--padding-gallery);
+      /*width: 100%;*/
       height: 100%;
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
-      justify-content: space-evenly;
+      gap: var(--padding-gallery);
+      /*justify-content: space-evenly;*/
       align-content: flex-start;
 
   }
 
   .note {
-      background-color: firebrick;
+      background-color: var(--p-color);
       width: 200px;
       height: 200px;
       border-style: solid;
+      border-color: var( --accent-1);
+      border-radius: 10px;
       /*flex-grow: 1;*/
       overflow: hidden;
+      box-shadow: 0px 4px 6px var(--shadoow-1);
+       transition: 0.25s;
+      /* :hover, :active, анимация */
   }
-.note-content{
-    width: 100%;
-    height: 100%;
-    word-wrap: break-word;
+.note:hover{
+     transform: scale(1.01);
+}
+.note:active{
+     transform: scale(0.99);
 }
 
-  .note-delete-container {
-      text-align: right;
+  .note-content {
+      padding: 10px;
+      /*width: 100%;
+      height: 100%;*/
+      word-wrap: break-word;
   }
 
+  .note-delete-container input,
+.note-delete-container button 
+{    
+    --size: 20px;
+     width: var(--size);
+     word-wrap:var(--size);
+}
+.note-delete-container{
+    display: flex;
+    justify-content: flex-end; 
+}
+  
+
   #note-add-btn {
+      background-color: var(--p-color);
       position: fixed;
       right: 20px;
       bottom: 20px;
       font-size: 50px;
       border-radius: 100%;
+      border-color: var( --accent-1);
       width: 100px;
       height: 100px;
+      transition: 0.25s;
+      /* :hover, :active, анимация */
   }
+#note-add-btn:hover{
+    transform: scale(1.1);
+}
+#note-add-btn:active{
+    transform: scale(0.9);
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

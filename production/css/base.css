@@ -1,4 +1,28 @@
- body {
+:root{
+    --p-color: #6f0909;
+    --s-color: #910000;
+    --text-color: #210000;
+    --t-color: #7b0404;
+    --padding-gallery: 18px;
+    --accent-1: #531a1a;
+    --shadoow-1:#310404;
+    --button-1: #9a1818;
+    --button-bg-1: #9a1818;
+     --button-bg-2: #de9e9e;;
+     --button-text-1: #500a0a;
+    --button-text-2:#933636;
+}
+*{
+    padding: 0;
+    margin: 0;
+    color: var( --text-color);
+}
+body {
      width: 100vw;
      margin: 0;
+    background-color: var(--s-color);
  }
+h1{
+    padding: 10px;
+    background-color: var(--p-color);
+}
