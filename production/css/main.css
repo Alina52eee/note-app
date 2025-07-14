@@ -79,7 +79,23 @@ h1 {
     transform: scale(0.9);
 } 
 
-
+#control-menu{
+      background-color: var( --p-color);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      position: fixed;
+      width: 100vw;
+      bottom: 0;
+      left: 0;
+    text-align: center;
+}
+#ctr-menu-delete{
+    background-color: var( --button-bg-1);
+    color: var (--button-bg-1);
+    padding: 10px;
+    
+}
 
 
 

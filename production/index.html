@@ -32,7 +32,7 @@
 
 <!--Меню управления-->
    <div id="control-menu">
-            <button id="ctr;-menu-delete" onclick="DeleteNote()">Удалить</button>
+            <button id="ctr-menu-delete" onclick="DeleteNote()">Удалить</button>
         </div>
    
     <script>
@@ -40,6 +40,9 @@
         
         var controlMenu = document.querySelector("#control-menu")
         controlMenu.style.display = "none"
+        
+        var selectedNoteIndex
+        var editMode = false
         
         if (noteIndex === null)
             noteIndex = 0
@@ -53,22 +56,31 @@
         function CloseModal() {
             document.querySelector("#main").style.display = "block"
             document.querySelector("#modal").style.display = "none"
+            document.querySelector("#note-text").value = ""
         }
 
         function SaveNote() {
             var textArea = document.querySelector("#note-text")
             var text = textArea.value
             var gallery = document.querySelector("#note-gallery")
+            
+            if(editMode){
+            textArea.value = ""
+            CloseModal();
 
+            localStorage.setItem("na_note" + selectedNoteIndex, text)
+            LoadNote()    
 
+            }else{
 
             gallery.innerHTML += ` 
-            <div class="note" onclick="EditNote()">
+            <div class="note" onclick="EditNote(this)">
                 <div class="note-delete-container">
-                        <input type="checkbox" onclick="ShowControlMenu()">  
+                        <input type="checkbox" onclick="event.stopPropagation();ShowControlMenu()">  
                 </div>
                 <div class="note-content">${text}</div>
-            </div>`;
+            </div>`
+            
             textArea.value = ""
             CloseModal();
 
@@ -76,6 +88,8 @@
 
             noteIndex++
             localStorage.setItem("na_noteIndex", noteIndex)
+                
+                }
 
         }
 
@@ -93,9 +107,9 @@
                 if (text != null) {
                     gallery.innerHTML +=
                         ` 
-            <div class="note" onclick="EditNote()">
+            <div class="note" onclick="EditNote(this)">
                 <div class="note-delete-container">
-                  <input type="checkbox" onclick="ShowControlMenu()"> 
+                  <input type="checkbox" onclick="event.stopPropagation();ShowControlMenu()"> 
                 </div>
                 <div class="note-content">${text}</div>
             </div>`
@@ -126,35 +140,71 @@
                 
               console.log("valueToDelete:",valueToDelete)
                 
-                var i = 0
-                while(i < noteIndex){
-                    var key = "na_note" + i
+                var j = 0
+                while(j < noteIndex){
+                    var key = "na_note" + j
                     var savedNote = localStorage.getItem(key)
                     
                     if(savedNote != null){
                         if(savedNote === valueToDelete){
                            localStorage.removeItem(key)
-                            
-                           }
+                              }
                    }
-                    i++
+                    j++
                 }
                 
-                
+                //console.log("outer_i:",i)
         }
                 i++
             
         }
             LoadNote()
+            ShowControlMenu()
         }
         
-        function EditNote(){
-            console.log("Редактирование заметки")
+        function EditNote(noteElement){
+            console.log("Редактирование заметки",noteElement)
+            console.log(noteElement.querySelector(".note-content").textContent)
+            /*
+            План:
+              1.onclik функция.(+)
+              2.Получение выбраной заметки.(+)
+              3.Открыть модальное окно.(+)
+              4.Текст заметки вставить в модальное окно.(+)
+              5.Определить индекс заметки в базе данных.(+)
+              6.Пересохранить заметку.
+              7.Показать заметки заново.
+            */
+            
+            
+            //Открыть модальное окно.
+            OpenModal()
+            
+            //Текст заметки вставить в модальное окно.
+            var editText = noteElement.querySelector(".note-content").textContent
+            var textArea = document.querySelector("#note-text")
+            textArea.value = editText
+            
+            //Определить индекс заметки.
+            
+            var i = 0
+            while(i < noteIndex){
+                var note = localStorage.getItem("na_note" + i)
+                if(editText = note){
+                    selectedNoteIndex = i
+                    editMode = true
+                    break
+                }
+                i++
+            }
+           
         }
         function ShowControlMenu(){
             var boxChecked = false
             
             var checkboxes = document.querySelectorAll(".note input")
+            
+            var addBtn = document.querySelector("#note-add-btn")
             
             var i = 0
             while(i < checkboxes.length){
@@ -166,9 +216,11 @@
             }
             
             if (boxChecked){
-                controlMenu.style.display = "block"
+                controlMenu.style.display = "flex"
+                addBtn.style.display = "none"
             }else{
                  controlMenu.style.display = "none"
+                addBtn.style.display = "block"
             }
         }
         LoadNote()
