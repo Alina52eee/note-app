@@ -5,9 +5,17 @@
     <title>Document</title>
 </head>
 <body>
+  <!-- <div class =kubik>Aaaa</div>
+   <div class =kubik>Aaaa</div>
+   <div class =kubik>Aaaa</div>
+   <div class =kubik>Aaaa</div>
+   -->
     <script>
-      document.body.innerHTML +=`<div class =kubik>+</div>` 
-      var box = document.querySelector(".kubik")
+        
+       /* var i = 0
+        while(i < 10){
+      document.body.innerHTML +=`<div class =kubik>Aaaa</div>` 
+      var kubik = document.querySelector(".kubik")
       
       kubik.style.width = "100px"
       kubik.style.height = "100px"
@@ -16,7 +24,44 @@
               ${Math.random() * 255},
               ${Math.random() * 255},
               ${Math.random() * 255}
-            )`    
+        )`
+      i++
+       }*/
+         var i = 0
+        while(i < 100){
+      document.body.innerHTML +=`<div class =kubik>Aaaa</div>` 
+      i++
+      }
+        
+         var kubiks = document.querySelectorAll(".kubik")
+         
+         var i = 0
+          while(i < kubiks.length){
+         var kubik = kubiks[i]
+          kubik.style.width = "100px"
+          kubik.style.height = "100px"
+        
+          kubik.style.backgroundColor =
+            `rgb(
+                ${Math.random() * 255},
+                ${Math.random() * 255},
+                ${Math.random() * 255}
+              )`
+             i++
+              }
+          
+         /* var kubik2 = kubiks[1]
+          kubik2.style.width = "100px"
+          kubik2.style.height = "100px"
+        
+          kubik2.style.backgroundColor =
+            `rgb(
+                ${Math.random() * 255},
+                ${Math.random() * 255},
+                ${Math.random() * 255}
+              )`
+              */
+          
     </script>
 </body>
 </html>
