@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hierarchy</title>
+    <link rel="stylesheet" href="hp-css/header.css">
+    <style>
+        body{
+            background-color: #883a3a;
+        }
+        *{
+            margin: 0;  
+            padding: 0; 
+        }
+        :root{
+            --primary-color:#ff9b9b;
+            --secondary-color:#8e2e2e;
+            --tertiary-color: #790000;
+        }
+        .container{
+            display: flex;
+            gap:24px; 
+            height: 1200px;
+        }
+        .main{
+            flex-grow: 2;
+            display: flex;
+            flex-direction: column;
+        }
+        .side{
+            background-color: darkgrey;
+            flex-grow: 1;
+        }
+        .video-frame{
+            background-color: black;
+            height: 360px;
+        }
+        .video-info{
+            background-color:var ( --secondary-color);
+            padding: 16px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .video-title{
+            font-weight: bold;
+            font-size: 12px;
+            color: var (--primary-color);
+        }
+        .video-subtite{
+            font-size: 10px;
+            color: var ( --tertiary-color);
+        }
+        .comments{
+            background-color: #818181;
+            flex-grow: 1;
+            margin-top:24px;
+            height: 200px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        .comment{
+            background-color:var (--secondary-color);
+            display: flex;
+            padding: 10px;
+            background: linear-gradient(rgba(244, 116, 116, 0)var(--secondary-color))
+        }
+        .avatar{
+            width: 36px; 
+            height: 36px;
+            background-color: #dbdbdb;
+            border-radius: 50px;
+        }
+        .comment-text-box{
+            padding-left: 10px;
+        }
+        .username{
+            font-size:12px;
+            color:var ( --tertiary-color);
+        }
+        .comment-text{
+            color:var (--primary-color);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">Иерархический экземпляр</div>
+    <div class="container">
+     <div class="main">
+         <div class="video-frame"></div>
+         <div class="video-info">
+             <div class="video-title">Ещкере 52 эээ</div>
+             <div class="video-subtite">17.07.2007.</div>
+         </div>
+         <div class="comments">
+             <div class="comment">
+                 <div class="avatar"></div>
+                 <div>
+                  <div class="username">@Username</div>
+                  <div class="comment-text">оывролывролывролывролывролр</div>
+                 </div>
+             </div>
+         </div>
+     </div>
+     <div class="side"></div>
+    </div>
+</body>
+</html>

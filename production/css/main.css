@@ -71,6 +71,7 @@ h1 {
       height: 100px;
       transition: 0.25s;
       /* :hover, :active, анимация */
+      z-index: 100;
   }
 #note-add-btn:hover{
     transform: scale(1.1);

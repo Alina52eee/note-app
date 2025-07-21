@@ -18,7 +18,7 @@
     color: var( --text-color);
 }
 body {
-     width: 100vw;
+    /* width: 100vw;*/
      margin: 0;
     background-color: var(--s-color);
  }
