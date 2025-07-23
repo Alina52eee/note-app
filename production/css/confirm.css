@@ -2,7 +2,7 @@
             background-color: rgba(0, 0, 0, 0.3);
             height: 100%;
             width: 100%;
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             display: flex;
@@ -10,6 +10,7 @@
             justify-content: center;
             align-items: center;
             visibility: hidden;
+            z-index: 200;
         }
         #confirm-box{
             background-color: #673939;
@@ -25,14 +26,14 @@
         #confirm-icon{
             width: 40px;
             height: 40px;
-            background-color: #ffa1a1;
+            background-color: crimson;
             display: flex;
             justify-content: center;
             align-items: center;
             /*transform: rotate(45deg);*/
             border-radius: 100%;
             font-size: 30px;
-            color: crimson;
+            color: #ffa1a1;
             
         }
         #confirm-button{

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,inital-scale=1">
     <title>Note app</title>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/main.css">
@@ -18,54 +19,63 @@
         <div id="note-gallery">
 
         </div>
-        <button id="note-add-btn" onclick="OpenModal()">+</button>
+        <button id="note-add-btn" onclick="OpenModal()">
+            <div>+</div>
+        </button>
     </div>
 
     <!--Модальное окно-->
     <div id="modal">
-        <button id="back-btn" onclick="CloseModal()">&lt;</button>
+        <button id="back-btn" onclick="ShowConfirm()">&lt;</button>
         <div id="note-name">Заметка</div>
         <textarea id="note-text"></textarea>
         <div id="modal-buttons">
-            <button id="btn-delete">Удалить</button>
+            <button id="btn-delete" onclick="ShowConfirm()">Удалить</button>
             <button id="btn-save" onclick="SaveNote()">Сохранить</button>
         </div>
     </div>
 
-<!--Всплываещие окно-->
-    
+    <!--Всплываещие окно-->
+
     <div id="confirm-popup">
         <div id="confirm-box">
-             <div id="confirm-icon">!</div>
-              <div id="confirm-text">Удалить заметку?</div>
-              <div id="confirm-button">
-             <button id="yes-btn" onclick="ShowConfirm()">Да.</button>
-             <button id="no-btn" onclick="HideConfirm()">Нет.</button>
+            <div id="confirm-icon">!</div>
+            <div id="confirm-text">Удалить заметку?</div>
+            <div id="confirm-button">
+                <button id="yes-btn" onclick="ConfirmDelete()">Да.</button>
+                <button id="no-btn" onclick="HideConfirm()">Нет.</button>
             </div>
         </div>
     </div>
 
-<!--Меню управления-->
-   <div id="control-menu">
+    <!--Меню управления-->
+    <!--<div id="control-menu">
             <button id="ctr-menu-delete" onclick="ShowConfirm()">Удалить</button>
-        </div>
-   
+        </div>-->
+
     <script>
         var noteIndex = localStorage.getItem("na_noteIndex")
-         if (noteIndex === null)
+        if (noteIndex === null)
             noteIndex = 0
-        
-        var main =  document.querySelector("#main")
-        var modal =  document.querySelector("#modal")
+
+        var main = document.querySelector("#main")
+        var modal = document.querySelector("#modal")
         var confirm = document.querySelector("#confirm-popup")
-       // var addBtn = document.querySelector("#note-add-btn")
+        var addBtn = document.querySelector("#note-add-btn")
+        var addBtnIcon = document.querySelector("#note-add-btn div")
         //var controlMenu = document.querySelector("#control-menu")
         //controlMenu.style.display = "none"
-        
+
+        //Модальное окно
+        var modalOpened = false
+
+        //Удаление
+        var deleteMode = false
+
         //Редактирование
         var selectedNoteIndex
         var editMode = false
-        
+
         //Анимации
         var modalDuration = "0.45s"
 
@@ -73,57 +83,68 @@
         function OpenModal() {
             //document.querySelector("#main").style.display = "none"
             //document.querySelector("#modal").style.display = "flex"
+
             
-            addBtn.style.animationName = "none" //Обнуление анимации
-            addBtn.offsetWidth //Перезагрузка стилей, перезапуск анимаций
-            modal.style.animationName = "none" //Обнуление анимации
-            modal.offsetWidth //Перезагрузка стилей, перезапуск анимаций
-            main.style.animationName = "none" 
-            main.offsetWidth 
-            
-            
-            addBtn.style.animationName = "AddBtnAnim"
-            addBtn.style.animationDuration = modalDuration 
-            addBtn.style.animationFillMode = "forwards"
-            addBtn.style.animationDirection = "normal"
-            
-            modal.style.animationName = "ModalAnim"
-            modal.style.animationDuration = modalDuration 
-            modal.style.animationFillMode = "forwards"
-            modal.style.animationDirection = "normal"
-            
-            main.style.animationName = "MainAnim"
-            main.style.animationDuration = modalDuration 
-            main.style.animationFillMode = "forwards"
-            main.style.animationDirection = "normal"
+
+            if (deleteMode) {
+                //DeleteNote()
+                ShowConfirm()
+            } else {
+                modalOpened = true
+                addBtn.style.animationName = "none" //Обнуление анимации
+                addBtn.offsetWidth //Перезагрузка стилей, перезапуск анимаций
+                modal.style.animationName = "none" //Обнуление анимации
+                modal.offsetWidth //Перезагрузка стилей, перезапуск анимаций
+                main.style.animationName = "none"
+                main.offsetWidth
+
+
+                addBtn.style.animationName = "AddBtnAnim"
+                addBtn.style.animationDuration = modalDuration
+                addBtn.style.animationFillMode = "forwards"
+                addBtn.style.animationDirection = "normal"
+
+                modal.style.animationName = "ModalAnim"
+                modal.style.animationDuration = modalDuration
+                modal.style.animationFillMode = "forwards"
+                modal.style.animationDirection = "normal"
+
+                main.style.animationName = "MainAnim"
+                main.style.animationDuration = modalDuration
+                main.style.animationFillMode = "forwards"
+                main.style.animationDirection = "normal"
+
+            }
         }
 
         function CloseModal() {
             //document.querySelector("#main").style.display = "block"
             //document.querySelector("#modal").style.display = "none"
+
+            modalOpened = false
             document.querySelector("#note-text").value = ""
-            
+
             addBtn.style.animationName = "none" //Обнуление анимации
             addBtn.offsetWidth //Перезагрузка стилей, перезапуск анимаций
             modal.style.animationName = "none" //Обнуление анимации
             modal.offsetWidth //Перезагрузка стилей, перезапуск анимаций
-            main.style.animationName = "none" 
-            main.offsetWidth 
-            
-            
+            main.style.animationName = "none"
+            main.offsetWidth
+
+
             addBtn.style.animationName = "AddBtnAnim"
-            addBtn.style.animationDuration = modalDuration 
+            addBtn.style.animationDuration = modalDuration
             addBtn.style.animationFillMode = "forwards"
             addBtn.style.animationDirection = "reverse"
-            
+
             modal.style.animationName = "ModalAnim"
-            modal.style.animationDuration = modalDuration 
+            modal.style.animationDuration = modalDuration
             modal.style.animationFillMode = "forwards"
             modal.style.animationDirection = "reverse"
-            
-            
+
+
             main.style.animationName = "MainAnim"
-            main.style.animationDuration = modalDuration 
+            main.style.animationDuration = modalDuration
             main.style.animationFillMode = "forwards"
             main.style.animationDirection = "reverse"
         }
@@ -132,39 +153,39 @@
             var textArea = document.querySelector("#note-text")
             var text = textArea.value
             var gallery = document.querySelector("#note-gallery")
-            
-            if(editMode){
-            textArea.value = ""
-            CloseModal();
 
-            localStorage.setItem("na_note" + selectedNoteIndex, text)
-            LoadNote()    
+            if (editMode) {
+                textArea.value = ""
+                CloseModal();
 
-            }else{
+                localStorage.setItem("na_note" + selectedNoteIndex, text)
+                LoadNote()
+                editMode = false
 
-            gallery.innerHTML += ` 
+            } else {
+                gallery.innerHTML += ` 
             <div class="note" onclick="EditNote(this)">
                 <div class="note-delete-container">
                         <input type="checkbox" onclick="event.stopPropagation();ShowControlMenu()">  
                 </div>
                 <div class="note-content">${text}</div>
             </div>`
-            
-            textArea.value = ""
-            CloseModal();
 
-            localStorage.setItem("na_note" + noteIndex, text)
+                textArea.value = ""
+                CloseModal();
 
-            noteIndex++
-            localStorage.setItem("na_noteIndex", noteIndex)
-                
-                }
+                localStorage.setItem("na_note" + noteIndex, text)
+
+                noteIndex++
+                localStorage.setItem("na_noteIndex", noteIndex)
+
+            }
 
         }
 
         function LoadNote() {
             var gallery = document.querySelector("#note-gallery")
-             gallery.innerHTML = ""
+            gallery.innerHTML = ""
 
             var i = 0
 
@@ -187,13 +208,26 @@
                 i++
             }
         }
-        
-        function ShowConfirm(){
+
+        function ShowConfirm() {
             confirm.style.visibility = "visible"
         }
-        
-        function HideConfirm(){
+
+        function HideConfirm() {
             confirm.style.visibility = "hidden"
+        }
+
+        function ConfirmDelete() {
+            HideConfirm()
+            if (!modalOpened) DeleteNote()
+            else if(editMode){
+            var text = localStorage.getItem("na_note" + selectedNoteIndex)
+            DeleteNoteByValue(text)
+            CloseModal()
+            LoadNote()
+            }
+            else CloseModal()
+
         }
 
         function DeleteNote() {
@@ -201,46 +235,50 @@
             var notes = document.querySelectorAll(".note")
 
             console.log(notes)
-            
+
             var i = 0
-            while (i < notes.length){
-           var note = notes[i]
-           if(note === undefined){
-               continue
-               i++
+            while (i < notes.length) {
+                var note = notes[i]
+                if (note === undefined) {
+                    continue
+                    i++
+                }
+
+                var checkbox = note.querySelector("input")
+
+                if (checkbox.checked === true) {
+                    var valueToDelete = note.querySelector(".note-content").textContent
+                    DeleteNoteByValue(valueToDelete)
+                    
+
+                }
+                i++
+                LoadNote()
+                ShowControlMenu()
             }
-                
-            var checkbox = note.querySelector("input")
-            
-            if(checkbox.checked === true){
-              var valueToDelete = note.querySelector(".note-content").textContent    
-                
-              console.log("valueToDelete:",valueToDelete)
-                
+
+            function DeleteNoteByValue(text) {
+                console.log("valueToDelete:", text)
+
                 var j = 0
-                while(j < noteIndex){
+                while (j < noteIndex) {
                     var key = "na_note" + j
                     var savedNote = localStorage.getItem(key)
-                    
-                    if(savedNote != null){
-                        if(savedNote === valueToDelete){
-                           localStorage.removeItem(key)
-                              }
-                   }
+
+                    if (savedNote != null) {
+                        if (savedNote === text) {
+                            localStorage.removeItem(key)
+                        }
+                    }
                     j++
                 }
-                
+
                 //console.log("outer_i:",i)
+            }
         }
-                i++
-            
-        }
-            LoadNote()
-            ShowControlMenu()
-        }
-        
-        function EditNote(noteElement){
-            console.log("Редактирование заметки",noteElement)
+
+        function EditNote(noteElement) {
+            console.log("Редактирование заметки", noteElement)
             console.log(noteElement.querySelector(".note-content").textContent)
             /*
             План:
@@ -252,86 +290,98 @@
               6.Пересохранить заметку.
               7.Показать заметки заново.
             */
-            
-            
+
+            if (deleteMode) return
+
             //Открыть модальное окно.
             OpenModal()
-            
+
             //Текст заметки вставить в модальное окно.
             var editText = noteElement.querySelector(".note-content").textContent
             var textArea = document.querySelector("#note-text")
             textArea.value = editText
-            
+
             //Определить индекс заметки.
-            
+
             var i = 0
-            while(i < noteIndex){
+            while (i < noteIndex) {
                 var note = localStorage.getItem("na_note" + i)
-                if(editText = note){
+                if (editText = note) {
                     selectedNoteIndex = i
                     editMode = true
                     break
                 }
                 i++
             }
-           
+
         }
-        function ShowControlMenu(){
+
+        function ShowControlMenu() {
             var boxChecked = false
-            
+
             var checkboxes = document.querySelectorAll(".note input")
-            
+
             var addBtn = document.querySelector("#note-add-btn")
-            
+
             var i = 0
-            while(i < checkboxes.length){
-                if(checkboxes[i].checked){
+            while (i < checkboxes.length) {
+                if (checkboxes[i].checked) {
                     boxChecked = true
                     break
                 }
                 i++
             }
-            
-            addBtn.style.animationName = "none" 
-            addBtn.offsetWidth 
-            
-            addBtn.style.animationName = "AddBtnAnim"
-            addBtn.style.animationDuration = modalDuration 
-            addBtn.style.animationFillMode = "forwards"
-            addBtn.style.animationDirection = "normal"
-            
-          /*  if (boxChecked){
-                controlMenu.style.display = "flex"
-                addBtn.style.display = "none"
-            }else{
-                 controlMenu.style.display = "none"
-                addBtn.style.display = "block"
-            }*/
+
+            if (boxChecked && !deleteMode) {
+                deleteMode = true
+                addBtn.style.animationName = "none"
+                addBtn.offsetWidth
+
+                addBtn.style.animationName = "DeleteBtnAnim"
+                addBtn.style.animationDuration = modalDuration
+                addBtn.style.animationFillMode = "forwards"
+                addBtn.style.animationDirection = "normal"
+
+
+                addBtnIcon.style.animationName = "none"
+                addBtnIcon.offsetWidth
+
+                addBtnIcon.style.animationName = "DeleteIconAnim"
+                addBtnIcon.style.animationDuration = modalDuration
+                addBtnIcon.style.animationFillMode = "forwards"
+                addBtnIcon.style.animationDirection = "normal"
+
+
+            } else if (!boxChecked) {
+                deleteMode = false
+                addBtn.style.animationName = "none"
+                addBtn.offsetWidth
+
+                addBtn.style.animationName = "DeleteBtnAnim"
+                addBtn.style.animationDuration = modalDuration
+                addBtn.style.animationFillMode = "forwards"
+                addBtn.style.animationDirection = "reverse"
+
+                addBtnIcon.style.animationName = "none"
+                addBtnIcon.offsetWidth
+
+                addBtnIcon.style.animationName = "DeleteIconAnim"
+                addBtnIcon.style.animationDuration = modalDuration
+                addBtnIcon.style.animationFillMode = "forwards"
+                addBtnIcon.style.animationDirection = "reverse"
+
+            }
+
+            /*  if (boxChecked){
+                  controlMenu.style.display = "flex"
+                  addBtn.style.display = "none"
+              }else{
+                   controlMenu.style.display = "none"
+                  addBtn.style.display = "block"
+              }
+              */
         }
+
         LoadNote()
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     </script>
 </body></html>
